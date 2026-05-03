@@ -3,8 +3,10 @@
 
 ## Reflection
 
-### 1. What are the key differences between unary, server streaming, and bi-directional streaming RPC methods, 
-and in what scenarios would each be most suitable?
+### 1. What are the key differences between unary, server streaming, and bi-directional streaming RPC methods,
+### and in what scenarios would each be most suitable?
+
+
 
 Unary RPC, server streaming RPC, and bidirectional streaming RPC differ mainly in how many messages
 flow between the client and server. Unary RPC is the simplest model: the client sends one request
@@ -20,7 +22,7 @@ Bidirectional streaming RPC allows both sides to send streams of messages indepe
 suitable for chat because the client and server need ongoing, real-time two-way communication.
 
 ### 2. What are the potential security considerations involved in implementing a gRPC service in Rust,
-particularly regarding authentication, authorization, and data encryption?
+### particularly regarding authentication, authorization, and data encryption?
 
 A Rust gRPC service needs security at several layers. For authentication, the server should verify
 who the client is, for example by validating tokens or client certificates passed through gRPC
@@ -34,7 +36,7 @@ internal errors through `tonic::Status`, configure timeouts and message size lim
 sensitive logs because the current tutorial code prints full requests.
 
 ### 3. What are the potential challenges or issues that may arise when handling bidirectional streaming in Rust gRPC,
-especially in scenarios like chat applications?
+### especially in scenarios like chat applications?
 
 Bidirectional streaming in Rust gRPC can be challenging because both sending and receiving happen
 asynchronously at the same time. In a chat application, the server must handle long-lived
@@ -47,7 +49,7 @@ system, the service would also need message ordering rules, user presence, broad
 management, backpressure handling, and cleanup when a stream ends.
 
 ### 4. What are the advantages and disadvantages of using the `tokio_stream::wrappers::ReceiverStream` for streaming 
-responses in Rust gRPC services?
+### responses in Rust gRPC services?
 
 `tokio_stream::wrappers::ReceiverStream` is useful because it converts a Tokio `mpsc` receiver into
 a stream that tonic can return as a gRPC streaming response. This matches the tutorial
@@ -61,7 +63,7 @@ buffer can become a bottleneck. It can also make error propagation less direct b
 be sent through the stream as `Result<T, Status>`.
 
 ### 5. In what ways could the Rust gRPC code be structured to facilitate code reuse and modularity,
-promoting maintainability and extensibility over time?
+### promoting maintainability and extensibility over time?
 
 The Rust gRPC code could be structured more modularly by separating generated protobuf bindings,
 service implementations, domain logic, and executable entry points. For example, the `services`
@@ -75,7 +77,7 @@ This would make the code easier to extend when adding new RPC methods or replaci
 data with a database.
 
 ### 6. In the MyPaymentService implementation, what additional steps might be necessary
-to handle more complex payment processing logic?
+### to handle more complex payment processing logic?
 
 The current `MyPaymentService` always returns `PaymentResponse { success: true }`, so more complex
 payment processing would require additional steps. The service should validate the request fields,
@@ -88,7 +90,7 @@ failed payments. For production use, the protobuf schema might also need more fi
 currency, payment method, transaction ID, error message, and timestamp.
 
 ### 7. What impact does the adoption of gRPC as a communication protocol have on the overall architecture and
-design of distributed systems, particularly in terms of interoperability with other technologies and platforms?
+### design of distributed systems, particularly in terms of interoperability with other technologies and platforms?
 
 Adopting gRPC affects distributed system architecture by making service contracts explicit through
 `.proto` files and generated client/server code. This improves interoperability because services
@@ -101,7 +103,7 @@ clients such as browsers or external third parties are comfortable using gRPC in
 REST.
 
 ### 8. What are the advantages and disadvantages of using HTTP/2, the underlying protocol for gRPC, 
-compared to HTTP/1.1 or HTTP/1.1 with WebSocket for REST APIs?
+### compared to HTTP/1.1 or HTTP/1.1 with WebSocket for REST APIs?
 
 HTTP/2 gives gRPC several advantages over HTTP/1.1 and many REST-over-WebSocket designs.
 Multiplexing allows many requests and responses to share one connection, reducing the head-of-line
@@ -115,7 +117,7 @@ proxies, browsers, or legacy infrastructure. WebSocket can support real-time tra
 not provide gRPC's built-in schema, code generation, and RPC method structure.
 
 ### 9. How does the request-response model of REST APIs contrast with the bidirectional
-streaming capabilities of gRPC in terms of real-time communication and responsiveness?
+### streaming capabilities of gRPC in terms of real-time communication and responsiveness?
 
 REST usually follows a request-response model where the client asks for a resource or action and the
 server returns one response. This is easy to understand and works well for normal CRUD APIs, but it
@@ -128,7 +130,7 @@ bidirectional streaming, both sides can send messages independently, which makes
 analytics, progress updates, and collaborative features more responsive.
 
 ### 10. What are the implications of the schema-based approach of gRPC, using Protocol Buffers, 
-compared to the more flexible, schema-less nature of JSON in REST API payloads?
+### compared to the more flexible, schema-less nature of JSON in REST API payloads?
 
 gRPC's schema-based approach with Protocol Buffers makes the API contract explicit. The `.proto`
 file defines services, methods, and message fields, and tooling generates strongly typed client and
